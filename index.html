@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d3 tutorials</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+    <p>Basic d3 SVG</p>
+    <script>
+        // select and append 
+        d3.select("p").attr("style", "color:red");
+        d3.select("body")
+        .append("p")
+        // .style("color","red")
+        .attr("style", "color:red")
+        .text("hello world");
+        console.log(d3);
+
+//basic svg
+           var canvas= d3.select("body")
+            .append("svg")
+            .attr("width", 500)
+            .attr("height", 500)
+
+           var circle= canvas
+           .append("circle")
+           .attr("cx", 290)
+           .attr("cy", 250)
+           .attr("r", 50)
+           .attr("fill", "red")
+           var rect = canvas
+           .append("rect")
+           .attr("width", 100)
+           .attr("fill", "yellow")
+           .attr("height", 50)
+           var line = canvas
+           .append("line")
+           .attr("x1", 0)
+           .attr("y1", 100)
+           .attr("x2",400)
+           .attr("y2", 400)
+           .attr("stroke", "green")
+           .attr("stroke-width", 10)
+    </script>
+
+</body>
+
+</html>
