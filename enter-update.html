@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 JS</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
+
+<body>
+    <!-- DOM elements < data elements (enter)-->
+    <!-- DOM elements > data elements (exit)-->
+    <!-- Dom elements = data elements (update) -->
+    <script>
+        var data = [30, 35, 40, 45, 48];
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+        var canvas = d3.select("body")
+            .append("svg")
+            .attr("width", 700)
+            .attr("height", 500)
+            .attr("style", "border: 1px solid red")
+            .attr("transform", "translate(50, 50)");
+
+        var circle = canvas.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("fill", function (d, i) {
+                return color(i);
+            })
+            .attr("cx", function (d, i) {
+                return 50 + i * 65; // Adjust the x position based on the index
+            })
+            .attr("cy", 40)
+            .attr("r", 0)
+
+        // apply transition
+        circle.transition()
+            .duration(1000)
+            .delay(function (d, i) {
+                return i * 100;
+            })
+            .attr("r", function (d) {
+                return d;
+            })
+            .attr("cx",150)
+            .attr("cy", function (d, i) {
+                return 50 + i * 65;
+            })
+            .each("end", function () {
+                d3.select(this).attr("color", "red");
+            });
+    </script>
+
+</body>
+
+</html>

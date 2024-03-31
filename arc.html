@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d3 tutorials</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+    <p>D3 JS LEARNINGSSSSS with arcs</p>
+    <script>
+        // arcs
+        var margin = { top: 50, right: 50, bottom: 50, left: 50 }; // Define margin values
+        var width = 500 - margin.left - margin.right; // Adjust width considering margins
+        var height = 500 - margin.top - margin.bottom; // Adjust height considering margins
+
+        var canvas = d3.select("body")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right) // Adjust SVG width with margins
+            .attr("height", height + margin.top + margin.bottom) // Adjust SVG height with margins
+            .attr("style", "border: 1px solid red")
+            .attr("transform", "translate(100, 100)")
+            .attr()
+
+        var group = canvas.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // Apply margin translation
+
+        var r = 50;
+        var p = Math.PI * 2
+
+        var arc = d3.arc()
+            .innerRadius(r - 10)
+            .outerRadius(r)
+            .startAngle(0)
+            .endAngle(p - 1)
+        group.append("path")
+            .attr("d", arc)
+    </script>
+
+</body>
+
+</html>

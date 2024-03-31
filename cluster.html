@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cluster</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
+
+<body>
+
+    <script>
+        var width = 500;
+        var height = 500;
+
+        var canvas = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("style", "border: 1px solid red")
+            .append("g")
+            .attr("transform", "translate(100, 100)");
+
+        var pack = d3.pack()
+            .size([width, height - 50])
+            .padding(3);
+
+        d3.json("mydata.json", function (data) {
+            var nodes = pack(data).descendants().slice(1);
+            var node = canvas.selectAll(".node")
+                .data(nodes)
+                .enter()
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", function (d) {
+                    return "translate(" + d.x + "," + d.y + ")";
+                })
+            node.append("circle")
+                .attr("r", function (d) {
+                    return d.r;
+                })
+                .attr("fill", function (d) {
+                    return d.fill;
+                })
+                .attr("opacity", 0.5)
+                .attr("stroke", "black")
+                .attr("stroke-width", "2")
+
+            node.append("text")
+                .text(function (d) {
+                    return d.children ? null : d.data.name;
+                })
+
+        })
+
+
+    </script>
+</body>
+
+</html>
