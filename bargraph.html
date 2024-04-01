@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        .chart-container {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="chart-container">
+            <!-- SVG element with appropriate width and height -->
+            <svg class="chart-svg" width="600" height="400"></svg>
+        </div>
+    </div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="dashboard.js"></script>
+    <script>
+        // Sample data
+        var your_data = [
+            { x: "A", y: 10 },
+            { x: "B", y: 20 },
+            { x: "C", y: 15 },
+            { x: "D", y: 25 },
+            { x: "D", y: 25 },{ x: "F", y: 25 },{ x: "G", y: 25 },
+            { x: "E", y: 18 }
+        ];
+
+        // Select the SVG element
+        var svg = d3.select(".chart-svg");
+
+        // Define scales
+        var xScale = d3.scaleBand()
+            .domain(your_data.map(d => d.x))
+            .range([0, svg.attr("width")])
+            .padding(0.1); // Adjust padding as needed
+
+        var yScale = d3.scaleLinear()
+            .domain([0, d3.max(your_data, d => d.y)])
+            .range([svg.attr("height"), 0]);
+
+        // Draw bars
+        svg.selectAll("rect")
+            .data(your_data)
+            .enter()
+            .append("rect")
+            .attr("x", d => xScale(d.x))
+            .attr("y", d => yScale(d.y))
+            .attr("width", xScale.bandwidth())
+            .attr("height", d => svg.attr("height") - yScale(d.y))
+            .attr("fill", "purple");
+
+        // Append x-axis
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + svg.attr("height") + ")")
+            .call(d3.axisBottom(xScale));
+
+        // Append y-axis
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(d3.axisLeft(yScale));
+    </script>
+</body>
+</html>
